@@ -1,0 +1,52 @@
+extends layout
+
+block headscript
+  script(src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.0/jquery.js')
+  script(src='/socket.io/socket.io.js')
+  script.
+    var socket = io.connect();
+
+block content
+  h1 ライフガーデン
+  div
+    span 参加者:
+    span#players
+  div
+    tt#fields
+    
+block bodyscript
+  script.
+    // 参加者一覧更新
+    socket.on('players', function(players) {
+      var html = players.length + '人';
+      if (players.length) {
+        html += '[ ' + players.map(function(p) { 
+          return '<font color="' + p.color + '">' + p.name + '　</font>'; 
+        }).join('') + ' ]';
+      }
+      $('#players').html(html);
+    });
+
+    $(window).keypress(function (e) {
+      // 1が49 9が58
+      if (49 <= e.which && e.which <= 58) {
+        var keynum = e.which - 48;
+        socket.emit('number pressed', keynum);
+      }
+    });
+
+    socket.on('fields', function(fields) {
+      var html = '';
+      for (var i = 0; i < fields.length; i++) {
+        for (var j = 0; j < fields[i].length; j++) {
+          var field = fields[i][j];
+          html += '<font color="' + field.user.color + '">' + field.letter + '</font>';
+        }
+        html += '<br />';
+      }
+
+      $('#fields').html(html);
+    });
+    
+    socket.emit('ready');
+

@@ -63,26 +63,26 @@ app.io.route('disconnect', function(req) {
 // マスタデータ
 var plants = {
   '1': [
-    { letter: '、', time:  5 },
-    { letter: '。', time:  7 },
-    { letter: '…', time: 10 },
-    { letter: 'Å', time: 30 },
+    { letter: '、', time:  15 },
+    { letter: '。', time:  20 },
+    { letter: '…', time: 30 },
+    { letter: 'Å', time: 120 },
   ],
   '2': [
-    { letter: '木', time:  5 },
-    { letter: '林', time: 10 },
-    { letter: '鬱', time: 20 },
+    { letter: '木', time: 20 },
+    { letter: '林', time: 40 },
+    { letter: '鬱', time: 120 },
   ],
   '3': [
-    { letter: 'ه', time:  8 },
-    { letter: 'ت', time:  8 },
-    { letter: 'ش', time: 20 },
+    { letter: 'ه', time:  30 },
+    { letter: 'ت', time:  30 },
+    { letter: 'ش', time: 120 },
   ],
 };
 
 // フィールドデータ
-var SIZE_X = 9;
-var SIZE_Y = 9;
+var SIZE_X = 30;
+var SIZE_Y = 30;
 var fields = [];
 for (var i = 0; i < SIZE_X; i++) {
   fields[i] = [];
